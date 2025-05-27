@@ -259,6 +259,46 @@
       </div>
     </div>
 
+    <!-- Anuncio emergente -->
+    <div
+      id="popupPublicidad"
+      style="
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.35);
+        z-index: 10000;
+        justify-content: center;
+        align-items: center;
+      "
+    >
+      <div
+        style="
+          background: #fffbe6;
+          border: 2px solid #ffe066;
+          border-radius: 12px;
+          padding: 32px 40px;
+          text-align: center;
+          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+          font-size: 20px;
+          color: #333;
+          max-width: 90vw;
+        "
+      >
+        <strong>¡Oferta especial en check-ups médicos!</strong><br />
+        Agenda tu cita y recibe un 10% de descuento.<br />
+        <a
+          href="https://www.hospitalpuebla.com.mx/"
+          target="_blank"
+          style="color: #007bff; text-decoration: underline"
+          >Ver detalles</a
+        >
+      </div>
+    </div>
+
     <script>
       // Sistema de gestión de pacientes
       class HospitalSystem {
@@ -742,6 +782,13 @@
         // Publicidad con jQuery
         $("#cerrarPublicidad").click(function () {
           $("#bannerPublicidad").slideUp();
+        });
+
+        // Mostrar popup publicitario al cargar y ocultar después de 3 segundos
+        $("#popupPublicidad").fadeIn(400, function () {
+          setTimeout(function () {
+            $("#popupPublicidad").fadeOut(400);
+          }, 3000);
         });
       });
     </script>
