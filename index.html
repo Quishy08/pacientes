@@ -9,60 +9,20 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
   <body>
-    <!-- Banner de publicidad -->
-    <div
-      id="bannerPublicidad"
-      style="
-        background: #ffe066;
-        color: #333;
-        padding: 15px;
-        text-align: center;
-        font-size: 18px;
-        position: relative;
-      "
-    >
+    <div id="bannerPublicidad">
       <span>
         ¡Consulta nuestros nuevos servicios de salud!
         <a
           href="https://www.hospitalpuebla.com.mx/"
           target="_blank"
-          style="color: #007bff; text-decoration: underline"
+          class="link-publicidad"
           >Más información</a
         >
       </span>
-      <button
-        id="cerrarPublicidad"
-        style="
-          position: absolute;
-          right: 15px;
-          top: 10px;
-          background: none;
-          border: none;
-          font-size: 20px;
-          cursor: pointer;
-        "
-      >
-        &times;
-      </button>
+      <button id="cerrarPublicidad" aria-label="Cerrar anuncio">&times;</button>
     </div>
 
-    <!-- Banner de publicidad lateral -->
-    <div
-      id="bannerLateralPublicidad"
-      style="
-        position: fixed;
-        top: 100px;
-        right: 0;
-        width: 120px;
-        background: #fffbe6;
-        border-left: 2px solid #ffe066;
-        text-align: center;
-        padding: 10px 0;
-        z-index: 9999;
-        box-shadow: -2px 0 8px rgba(0, 0, 0, 0.07);
-        border-radius: 10px 0 0 10px;
-      "
-    >
+    <div id="bannerLateralPublicidad">
       <a
         href="https://www.fahorro.com/"
         target="_blank"
@@ -71,7 +31,7 @@
         <img
           src="farmacia.png"
           alt="Publicidad farmacia"
-          style="height: 100px; vertical-align: middle"
+          class="img-publicidad"
         />
       </a>
     </div>
@@ -259,41 +219,14 @@
       </div>
     </div>
 
-    <!-- Anuncio emergente -->
-    <div
-      id="popupPublicidad"
-      style="
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0, 0, 0, 0.35);
-        z-index: 10000;
-        justify-content: center;
-        align-items: center;
-      "
-    >
-      <div
-        style="
-          background: #fffbe6;
-          border: 2px solid #ffe066;
-          border-radius: 12px;
-          padding: 32px 40px;
-          text-align: center;
-          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
-          font-size: 20px;
-          color: #333;
-          max-width: 90vw;
-        "
-      >
+    <div id="popupPublicidad">
+      <div class="popup-contenido">
         <strong>¡Oferta especial en check-ups médicos!</strong><br />
         Agenda tu cita y recibe un 10% de descuento.<br />
         <a
           href="https://www.hospitalpuebla.com.mx/"
           target="_blank"
-          style="color: #007bff; text-decoration: underline"
+          class="link-publicidad"
           >Ver detalles</a
         >
       </div>
@@ -779,12 +712,10 @@
       $(document).ready(function () {
         window.hospitalSystem = new HospitalSystem();
 
-        // Publicidad con jQuery
         $("#cerrarPublicidad").click(function () {
           $("#bannerPublicidad").slideUp();
         });
 
-        // Mostrar popup publicitario al cargar y ocultar después de 3 segundos
         $("#popupPublicidad").fadeIn(400, function () {
           setTimeout(function () {
             $("#popupPublicidad").fadeOut(400);

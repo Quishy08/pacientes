@@ -347,7 +347,70 @@ body {
   height: 300px !important;
 }
 
-/* Media Queries para Responsividad */
+#bannerPublicidad {
+  background: #ffe066;
+  color: #333;
+  padding: 15px;
+  text-align: center;
+  font-size: 18px;
+  position: relative;
+}
+#cerrarPublicidad {
+  position: absolute;
+  right: 15px;
+  top: 10px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+.link-publicidad {
+  color: #007bff;
+  text-decoration: underline;
+}
+
+#bannerLateralPublicidad {
+  position: fixed;
+  top: 100px;
+  right: 0;
+  width: 120px;
+  background: #fffbe6;
+  border-left: 2px solid #ffe066;
+  text-align: center;
+  padding: 10px 0;
+  z-index: 9999;
+  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.07);
+  border-radius: 10px 0 0 10px;
+}
+.img-publicidad {
+  height: 100px;
+  vertical-align: middle;
+}
+
+#popupPublicidad {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 10000;
+  justify-content: center;
+  align-items: center;
+}
+#popupPublicidad .popup-contenido {
+  background: #fffbe6;
+  border: 2px solid #ffe066;
+  border-radius: 12px;
+  padding: 32px 40px;
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+  font-size: 20px;
+  color: #333;
+  max-width: 90vw;
+}
+
 @media (max-width: 768px) {
   .form-row {
     grid-template-columns: 1fr;
