@@ -16,7 +16,7 @@
         <a
           href="https://www.hospitalpuebla.com.mx/"
           target="_blank"
-          class="link-publicidad"
+          class="enlace-publicidad"
           >Más información</a
         >
       </span>
@@ -37,32 +37,36 @@
       </a>
     </div>
 
-    <div class="container">
+    <div class="contenedor">
       <div class="header">
         <h1>🏥 Sistema de hospital para consultas</h1>
         <p>Gestión de Pacientes</p>
       </div>
 
-      <div class="nav-tabs">
-        <button class="nav-tab active" data-tab="registro">
+      <div class="nav-pestañas">
+        <button class="pestaña-nav activo" data-pestaña="registro">
           📝 Registro de Pacientes
         </button>
-        <button class="nav-tab" data-tab="lista">👥 Lista de Pacientes</button>
-        <button class="nav-tab" data-tab="estadisticas">📊 Estadísticas</button>
+        <button class="pestaña-nav" data-pestaña="lista">
+          👥 Lista de Pacientes
+        </button>
+        <button class="pestaña-nav" data-pestaña="estadisticas">
+          📊 Estadísticas
+        </button>
       </div>
 
-      <div id="registro" class="tab-content active">
+      <div id="registro" class="contenido-pestaña activo">
         <h2 style="color: #2c3e50; margin-bottom: 25px">
           Registro de Nuevo Paciente
         </h2>
 
         <form id="formPaciente">
-          <div class="form-row">
-            <div class="form-group">
+          <div class="fila-formulario">
+            <div class="grupo-formulario">
               <label for="nombre">Nombre Completo *</label>
               <input type="text" id="nombre" name="nombre" required />
             </div>
-            <div class="form-group">
+            <div class="grupo-formulario">
               <label for="edad">Edad *</label>
               <input
                 type="number"
@@ -75,8 +79,8 @@
             </div>
           </div>
 
-          <div class="form-row">
-            <div class="form-group">
+          <div class="fila-formulario">
+            <div class="grupo-formulario">
               <label for="genero">Género</label>
               <select id="genero" name="genero">
                 <option value="">Seleccionar...</option>
@@ -85,19 +89,19 @@
                 <option value="otro">Otro</option>
               </select>
             </div>
-            <div class="form-group">
+            <div class="grupo-formulario">
               <label for="telefono">Teléfono</label>
               <input type="tel" id="telefono" name="telefono" />
             </div>
           </div>
 
-          <div class="form-group">
+          <div class="grupo-formulario">
             <label for="direccion">Dirección</label>
             <textarea id="direccion" name="direccion" rows="2"></textarea>
           </div>
 
-          <div class="form-row">
-            <div class="form-group">
+          <div class="fila-formulario">
+            <div class="grupo-formulario">
               <label for="fechaIngreso">Fecha de Ingreso *</label>
               <input
                 type="date"
@@ -106,7 +110,7 @@
                 required
               />
             </div>
-            <div class="form-group">
+            <div class="grupo-formulario">
               <label for="departamento">Departamento *</label>
               <select id="departamento" name="departamento" required>
                 <option value="">Seleccionar...</option>
@@ -122,7 +126,7 @@
             </div>
           </div>
 
-          <div class="form-group">
+          <div class="grupo-formulario">
             <label for="diagnostico">Diagnóstico Inicial</label>
             <textarea
               id="diagnostico"
@@ -132,8 +136,8 @@
             ></textarea>
           </div>
 
-          <div class="form-row">
-            <div class="form-group">
+          <div class="fila-formulario">
+            <div class="grupo-formulario">
               <label for="medico">Médico Responsable</label>
               <input
                 type="text"
@@ -142,7 +146,7 @@
                 placeholder="Dr. Nombre Apellido"
               />
             </div>
-            <div class="form-group">
+            <div class="grupo-formulario">
               <label for="seguro">Seguro Médico</label>
               <select id="seguro" name="seguro">
                 <option value="">Seleccionar...</option>
@@ -155,12 +159,12 @@
           </div>
 
           <div style="text-align: center; margin-top: 30px">
-            <button type="submit" class="btn btn-primary">
+            <button type="submit" class="boton boton-primario">
               💾 Registrar Paciente
             </button>
             <button
               type="reset"
-              class="btn"
+              class="boton"
               style="background: #6c757d; color: white; margin-left: 10px"
             >
               🔄 Limpiar Formulario
@@ -171,63 +175,63 @@
         <div id="mensajeRegistro"></div>
       </div>
 
-      <div id="lista" class="tab-content">
+      <div id="lista" class="contenido-pestaña">
         <h2 style="color: #2c3e50; margin-bottom: 25px">Lista de Pacientes</h2>
 
         <input
           type="text"
           id="buscarPaciente"
-          class="search-box"
+          class="caja-busqueda"
           placeholder="🔍 Buscar paciente por nombre, ID o departamento..."
         />
 
         <div id="listaPacientes"></div>
       </div>
 
-      <div id="estadisticas" class="tab-content">
+      <div id="estadisticas" class="contenido-pestaña">
         <h2 style="color: #2c3e50; margin-bottom: 25px">
           Estadísticas del Hospital
         </h2>
 
-        <div class="stats-grid">
-          <div class="stat-card">
-            <div class="stat-number" id="totalPacientes">0</div>
-            <div class="stat-label">Total Pacientes</div>
+        <div class="cuadricula-estadisticas">
+          <div class="tarjeta-estadistica">
+            <div class="numero-estadistica" id="totalPacientes">0</div>
+            <div class="etiqueta-estadistica">Total Pacientes</div>
           </div>
-          <div class="stat-card">
-            <div class="stat-number" id="pacientesActivos">0</div>
-            <div class="stat-label">Pacientes Activos</div>
+          <div class="tarjeta-estadistica">
+            <div class="numero-estadistica" id="pacientesActivos">0</div>
+            <div class="etiqueta-estadistica">Pacientes Activos</div>
           </div>
-          <div class="stat-card">
-            <div class="stat-number" id="altasHoy">0</div>
-            <div class="stat-label">Altas Hoy</div>
+          <div class="tarjeta-estadistica">
+            <div class="numero-estadistica" id="altasHoy">0</div>
+            <div class="etiqueta-estadistica">Altas Hoy</div>
           </div>
-          <div class="stat-card">
-            <div class="stat-number" id="promedioDias">0</div>
-            <div class="stat-label">Promedio Días</div>
+          <div class="tarjeta-estadistica">
+            <div class="numero-estadistica" id="promedioDias">0</div>
+            <div class="etiqueta-estadistica">Promedio Días</div>
           </div>
         </div>
 
-        <div class="chart-container">
-          <div class="chart-title">Distribución por Departamentos</div>
-          <canvas id="chartDepartamentos" class="chart-canvas"></canvas>
+        <div class="contenedor-grafico">
+          <div class="titulo-grafico">Distribución por Departamentos</div>
+          <canvas id="graficoDepartamentos" class="canvas-grafico"></canvas>
         </div>
 
-        <div class="chart-container">
-          <div class="chart-title">Ingresos por Mes</div>
-          <canvas id="chartIngresos" class="chart-canvas"></canvas>
+        <div class="contenedor-grafico">
+          <div class="titulo-grafico">Ingresos por Mes</div>
+          <canvas id="graficoIngresos" class="canvas-grafico"></canvas>
         </div>
       </div>
     </div>
 
-    <div id="popupPublicidad">
-      <div class="popup-contenido">
+    <div id="ventanaPublicidad">
+      <div class="contenido-ventana">
         <strong>¡Oferta especial en chequeos médicos!</strong><br />
         Agenda tu cita y recibe un 10% de descuento.<br />
         <a
           href="https://www.hospitalpuebla.com.mx/"
           target="_blank"
-          class="link-publicidad"
+          class="enlace-publicidad"
           >Ver detalles</a
         >
       </div>

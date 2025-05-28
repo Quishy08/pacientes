@@ -1,21 +1,21 @@
-class HospitalSystem {
+class SistemaHospital {
   constructor() {
     this.pacientes = JSON.parse(localStorage.getItem("pacientes") || "[]");
     this.contadorId = parseInt(localStorage.getItem("contadorId") || "1");
-    this.charts = {};
-    this.init();
+    this.graficos = {};
+    this.inicializar();
   }
 
-  init() {
-    this.setupEventListeners();
-    this.setupInitialData();
+  inicializar() {
+    this.configurarEventos();
+    this.configurarDatosIniciales();
     $("#fechaIngreso").val(new Date().toISOString().split("T")[0]);
   }
 
-  setupEventListeners() {
-    $(".nav-tab").click((e) => {
-      const tabId = $(e.target).data("tab");
-      this.switchTab(tabId);
+  configurarEventos() {
+    $(".pestaña-nav").click((e) => {
+      const idPestaña = $(e.target).data("pestaña");
+      this.cambiarPestaña(idPestaña);
     });
 
     $("#formPaciente").submit((e) => {
@@ -29,16 +29,16 @@ class HospitalSystem {
     });
   }
 
-  switchTab(tabId) {
-    $(".nav-tab").removeClass("active");
-    $(".tab-content").removeClass("active");
+  cambiarPestaña(idPestaña) {
+    $(".pestaña-nav").removeClass("activo");
+    $(".contenido-pestaña").removeClass("activo");
 
-    $(`[data-tab="${tabId}"]`).addClass("active");
-    $(`#${tabId}`).addClass("active");
+    $(`[data-pestaña="${idPestaña}"]`).addClass("activo");
+    $(`#${idPestaña}`).addClass("activo");
 
-    if (tabId === "lista") {
+    if (idPestaña === "lista") {
       this.mostrarListaPacientes();
-    } else if (tabId === "estadisticas") {
+    } else if (idPestaña === "estadisticas") {
       setTimeout(() => this.actualizarEstadisticas(), 100);
     }
   }
@@ -82,75 +82,75 @@ class HospitalSystem {
   }
 
   mostrarListaPacientes(lista = this.pacientes) {
-    const container = $("#listaPacientes");
-    container.empty();
+    const contenedor = $("#listaPacientes");
+    contenedor.empty();
 
     if (lista.length === 0) {
-      container.html(
-        '<div class="alert alert-info">No se encontraron pacientes.</div>'
+      contenedor.html(
+        '<div class="alerta alerta-info">No se encontraron pacientes.</div>'
       );
       return;
     }
 
     lista.forEach((paciente) => {
-      const estadoBadge =
+      const etiquetaEstado =
         paciente.estado === "activo"
-          ? '<span class="status-badge status-activo">Activo</span>'
-          : '<span class="status-badge status-alta">Alta</span>';
+          ? '<span class="etiqueta-estado estado-activo">Activo</span>'
+          : '<span class="etiqueta-estado estado-alta">Alta</span>';
 
       const diasHospitalizacion = this.calcularDiasHospitalizacion(
         paciente.fechaIngreso,
         paciente.fechaAlta
       );
 
-      const card = `
-                <div class="patient-card">
-                    <div class="patient-header">
-                        <div class="patient-name">${paciente.nombre}</div>
-                        <div class="patient-id">ID: ${paciente.id}</div>
+      const tarjeta = `
+                <div class="tarjeta-paciente">
+                    <div class="header-paciente">
+                        <div class="nombre-paciente">${paciente.nombre}</div>
+                        <div class="id-paciente">ID: ${paciente.id}</div>
                     </div>
                     
-                    <div class="patient-info">
-                        <div class="info-item">
-                            <div class="info-label">Edad</div>
-                            <div class="info-value">${paciente.edad} años</div>
+                    <div class="info-paciente">
+                        <div class="item-info">
+                            <div class="etiqueta-info">Edad</div>
+                            <div class="valor-info">${paciente.edad} años</div>
                         </div>
-                        <div class="info-item">
-                            <div class="info-label">Departamento</div>
-                            <div class="info-value">${
+                        <div class="item-info">
+                            <div class="etiqueta-info">Departamento</div>
+                            <div class="valor-info">${
                               paciente.departamento
                             }</div>
                         </div>
-                        <div class="info-item">
-                            <div class="info-label">Médico</div>
-                            <div class="info-value">${
+                        <div class="item-info">
+                            <div class="etiqueta-info">Médico</div>
+                            <div class="valor-info">${
                               paciente.medico || "No asignado"
                             }</div>
                         </div>
-                        <div class="info-item">
-                            <div class="info-label">Días Hospitalizado</div>
-                            <div class="info-value">${diasHospitalizacion} días</div>
+                        <div class="item-info">
+                            <div class="etiqueta-info">Días Hospitalizado</div>
+                            <div class="valor-info">${diasHospitalizacion} días</div>
                         </div>
                     </div>
                     
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px;">
-                        ${estadoBadge}
+                        ${etiquetaEstado}
                         <div>
                             ${
                               paciente.estado === "activo"
-                                ? `<button class="btn btn-success" onclick="hospitalSystem.darAlta(${paciente.id})">📋 Dar Alta</button>`
+                                ? `<button class="boton boton-exito" onclick="sistemaHospital.darAlta(${paciente.id})">📋 Dar Alta</button>`
                                 : `<span style="color: #28a745; font-weight: 600;">Alta: ${this.formatearFecha(
                                     paciente.fechaAlta
                                   )}</span>`
                             }
-                            <button class="btn btn-danger" onclick="hospitalSystem.eliminarPaciente(${
+                            <button class="boton boton-peligro" onclick="sistemaHospital.eliminarPaciente(${
                               paciente.id
                             })" style="margin-left: 10px;">🗑️ Eliminar</button>
                         </div>
                     </div>
                 </div>
             `;
-      container.append(card);
+      contenedor.append(tarjeta);
     });
   }
 
@@ -179,11 +179,11 @@ class HospitalSystem {
   }
 
   crearGraficoDepartamentos() {
-    const canvas = document.getElementById("chartDepartamentos");
-    if (!canvas) return;
+    const lienzo = document.getElementById("graficoDepartamentos");
+    if (!lienzo) return;
 
-    if (this.charts.departamentos) {
-      this.charts.departamentos.destroy();
+    if (this.graficos.departamentos) {
+      this.graficos.departamentos.destroy();
     }
 
     const departamentos = {};
@@ -193,20 +193,20 @@ class HospitalSystem {
     });
 
     if (Object.keys(departamentos).length === 0) {
-      const ctx = canvas.getContext("2d");
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const ctx = lienzo.getContext("2d");
+      ctx.clearRect(0, 0, lienzo.width, lienzo.height);
       ctx.font = "16px Segoe UI";
       ctx.textAlign = "center";
       ctx.fillStyle = "#6c757d";
       ctx.fillText(
         "No hay datos para mostrar",
-        canvas.width / 2,
-        canvas.height / 2
+        lienzo.width / 2,
+        lienzo.height / 2
       );
       return;
     }
 
-    this.charts.departamentos = new Chart(canvas, {
+    this.graficos.departamentos = new Chart(lienzo, {
       type: "doughnut",
       data: {
         labels: Object.keys(departamentos).map(
@@ -244,11 +244,11 @@ class HospitalSystem {
   }
 
   crearGraficoIngresos() {
-    const canvas = document.getElementById("chartIngresos");
-    if (!canvas) return;
+    const lienzo = document.getElementById("graficoIngresos");
+    if (!lienzo) return;
 
-    if (this.charts.ingresos) {
-      this.charts.ingresos.destroy();
+    if (this.graficos.ingresos) {
+      this.graficos.ingresos.destroy();
     }
 
     const ingresosPorMes = {};
@@ -264,15 +264,15 @@ class HospitalSystem {
     });
 
     if (Object.keys(ingresosPorMes).length === 0) {
-      const ctx = canvas.getContext("2d");
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const ctx = lienzo.getContext("2d");
+      ctx.clearRect(0, 0, lienzo.width, lienzo.height);
       ctx.font = "16px Segoe UI";
       ctx.textAlign = "center";
       ctx.fillStyle = "#6c757d";
       ctx.fillText(
         "No hay datos para mostrar",
-        canvas.width / 2,
-        canvas.height / 2
+        lienzo.width / 2,
+        lienzo.height / 2
       );
       return;
     }
@@ -281,7 +281,7 @@ class HospitalSystem {
       return new Date(a) - new Date(b);
     });
 
-    this.charts.ingresos = new Chart(canvas, {
+    this.graficos.ingresos = new Chart(lienzo, {
       type: "line",
       data: {
         labels: mesesOrdenados,
@@ -373,7 +373,7 @@ class HospitalSystem {
     localStorage.setItem("contadorId", this.contadorId.toString());
   }
 
-  setupInitialData() {
+  configurarDatosIniciales() {
     if (this.pacientes.length === 0) {
       const ejemplos = [
         {
@@ -463,15 +463,15 @@ class HospitalSystem {
 
 // Inicialización cuando el documento está listo
 $(document).ready(function () {
-  window.hospitalSystem = new HospitalSystem();
+  window.sistemaHospital = new SistemaHospital();
 
   $("#cerrarPublicidad").click(function () {
     $("#bannerPublicidad").slideUp();
   });
 
-  $("#popupPublicidad").fadeIn(400, function () {
+  $("#ventanaPublicidad").fadeIn(400, function () {
     setTimeout(function () {
-      $("#popupPublicidad").fadeOut(400);
+      $("#ventanaPublicidad").fadeOut(400);
     }, 3000);
   });
 });
